@@ -1,0 +1,12 @@
+#YAML EXPLANATION FILE
+
+Name: Darkus
+Languages: Shell-Script,Python
+Original Creator: Luca Garofalo (Lucksi)
+Author: Luca Garofalo (Lucksi)
+Download: git clone https://github.com/Lucksi/Darkus
+Installation: sudo bash Installer.sh
+Execution: python3 Main.py
+Platforms: Linux
+Version: 1.0.1
+License: GNU General Public License v3.0
