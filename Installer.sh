@@ -4,7 +4,6 @@
 # Copyright (C) 2023 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
-ARCHITECTURE="$(arch)"
 YELLOW=$(tput setaf 11)
 RED=$(tput setaf 1)
 WHITE=$(tput setaf 15)
