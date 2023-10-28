@@ -2,7 +2,7 @@
 <img src = "Logo/Logo.png"height = "100" width="auto">
 </p>
 
-***Darkus is a dark web searcher it uses deep/dark web searcher engines to search a specific word and give you back the link results.***
+***Darkus is a Onion websites searcher it uses deep/dark web searcher engines to search a specific word and give you back the link results.***
 
 ## DISCLAIMER
 
