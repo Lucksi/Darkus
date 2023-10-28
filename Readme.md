@@ -28,7 +28,7 @@ cd Darkus
 python3 Main.py
 ```
 
-## Current Search Engines
+## Current Search Engines:
 
 | Name | Link |
 | ------------- | ------------- |
