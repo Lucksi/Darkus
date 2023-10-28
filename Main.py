@@ -76,7 +76,7 @@ class Engine:
                 f.close()
                 sleep(0.3)
                 try:
-                    choice = str(input(Colors.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for the the bad usage of this tool\n\nPress" +
+                    choice = str(input(Colors.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for any bad/illegal usage of this tool.\n\nPress" +
                                        Colors.GREEN + "(Y)" + Colors.WHITE + "To accept" + Colors.RED + "(N)" + Colors.WHITE + "To decline\n\n" + Colors.RED + "[:DARKUS:]" + Colors.WHITE + "-->"))
                     if choice == "Y" or choice == "y":
                         f = open("Agreement.txt", "w")
@@ -110,7 +110,7 @@ class Engine:
             f.close()
             sleep(0.3)
             try:
-                choice = str(input(Colors.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for the the bad usage of this tool\n\nPress" +
+                choice = str(input(Colors.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for any bad/illegal usage of this tool.\n\nPress" +
                                        Colors.GREEN + "(Y)" + Colors.WHITE + "To accept" + Colors.RED + "(N)" + Colors.WHITE + "To decline\n\n" + Colors.RED + "[:DARKUS:]" + Colors.WHITE + "-->"))
                 if choice == "Y" or choice == "y":
                     f = open("Agreement.txt", "w")
@@ -159,7 +159,7 @@ class Engine:
     def dataExtraction(parser, name, report):
         if name == "Ahmia":
             f = open(report, "a")
-            f.write(name + "\tonion-links\r\n")
+            f.write(name + " onion-links\r\n\n")
             i = 0
             list1 = parser.find_all("li", class_="result")
             for link in list1:
@@ -183,9 +183,10 @@ class Engine:
                 f.write("Timestamp: {}\r\n\n".format(timestamp))
                 Engine.count = Engine.count + 1
                 i = i + 1
+        
         elif name == "Torch":
             f = open(report, "a")
-            f.write(name + "\tonion-links\r\n")
+            f.write(name + "onion-links\r\n\n")
             i = 0
             list1 = parser.find_all("div", class_="result mb-3")
             for link in list1:
@@ -201,13 +202,13 @@ class Engine:
                       "Description: {}\n".format(Colors.GREEN + description))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
-                f.write("Description: {}\r\n".format(description))
+                f.write("Description: {}\r\n\n".format(description))
                 Engine.count = Engine.count + 1
                 i = i+1
     
         elif name == "Torch-Images":
             f = open(report, "a")
-            f.write(name + "\tonion-links\r\n")
+            f.write(name + " onion-links\r\n\n")
             i = 0
             list1 = parser.find_all("div", class_="imagehold")
             for link in list1:
@@ -228,6 +229,28 @@ class Engine:
                     f.write("Image-Url: {}\r\n\n".format(image))
                     i = i+1
                     Engine.count = Engine.count + 1
+        
+        elif name == "notevil":
+            f = open(report, "a")
+            f.write(name + " onion-links\r\n\n")
+            i = 0
+            list1 = parser.find_all("div", class_="row")
+            for link in list1:
+                title = link.find_all("a")[2].text.replace(
+                    "  ", "").replace("\n", "")
+                url = link.find_all("a")[2]["href"]
+                description = link.find("span").text.replace("\n", "")
+                print(Colors.GREEN + "[+]" +
+                     Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
+                print(Colors.YELLOW + "[v]" +
+                      Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
+                print(Colors.YELLOW + "[v]" + Colors.WHITE +
+                      "Description: {}\n".format(Colors.GREEN + description))
+                f.write("Title: {}\r\n".format(title))
+                f.write("Url: {}\r\n".format(url))
+                f.write("Description: {}\r\n\n".format(description))
+                Engine.count = Engine.count + 1
+                i = i+1
         f.write("Total Onion {} Site Found: {}\r\n".format(name, str(i)))
         f.close()
         print(Colors.BLUE + "[I]" + Colors.WHITE + "Total {} Onion Site Found: {}".format(
@@ -264,6 +287,21 @@ class Engine:
                     pass
         except Exception as e:
             pass
+    
+    @staticmethod
+    def Notevil(parameter, report):
+        print(Colors.GREEN + "\n[+]" + Colors.WHITE +
+              "Searching notevil Results for : {}\n".format(Colors.GREEN + parameter))
+        url = "http://notevilmtxf25uw7tskqxj6njlpebyrmlrerfv5hc4tuq7c7hilbyiqd.onion/index.php?q={}".format(
+            parameter)
+        try:
+            req = requests.get(url, proxies=Engine.proxy,
+                               headers=Engine.headers)
+            parser = soup(req.content, "html.parser")
+            Engine.dataExtraction(parser, "notevil", report)
+        except Exception as e:
+            pass
+
 
     @staticmethod
     def Ahmia(parameter, report):
@@ -351,6 +389,7 @@ class Engine:
                 os.remove("output/{}.Dk".format(param))
             Engine.Ahmia(param, report)
             Engine.Torch(param, report)
+            Engine.Notevil(param, report)
             f = open(report, "a")
             f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
             f.close()
