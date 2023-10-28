@@ -141,7 +141,7 @@ class Engine:
             print(Colors.RED + line.replace("\n", ""))
         f.close()
         sleep(0.3)
-        print(Colors.WHITE + "\nA Dark Web Searcher\t\tCoded by Lucksi")
+        print(Colors.WHITE + "\nA Onion Websites Searcher\t  Coded by Lucksi")
         print(Colors.RED + "____________________________________________________")
         print(Colors.RED + "|" + Colors.WHITE + " Instagram:lucks_022" +
               Colors.RED + "                              |")
