@@ -170,11 +170,11 @@ class Engine:
                 timestamp = link.find("span", class_="lastSeen")[
                     "data-timestamp"].replace("\n", "").replace(" ", "")
                 print(Colors.GREEN + "[+]" +
-                      Colors.WHITE + "Title: {}".format(title))
+                      Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
                 print(Colors.YELLOW + "[v]" +
-                      Colors.WHITE + "Url: {}".format(url))
+                      Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
                 print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Description: {}".format(description))
+                      "Description: {}".format(Colors.GREEN + description))
                 print(Colors.YELLOW + "[v]" + Colors.WHITE +
                       "Timestamp: {}\n".format(timestamp))
                 f.write("Title: {}\r\n".format(title))
@@ -194,37 +194,17 @@ class Engine:
                 url = link.find("a")["href"]
                 description = link.find("p").text.replace("\n", "")
                 print(Colors.GREEN + "[+]" +
-                      Colors.WHITE + "Title: {}".format(title))
+                      Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
                 print(Colors.YELLOW + "[v]" +
-                      Colors.WHITE + "Url: {}".format(url))
+                      Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
                 print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Description: {}\n".format(description))
+                      "Description: {}\n".format(Colors.GREEN + description))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
                 Engine.count = Engine.count + 1
                 i = i+1
-        elif name == "Torch":
-            f = open(report, "a")
-            f.write(name + "\tonion-links\r\n")
-            i = 0
-            list1 = parser.find_all("div", class_="result mb-3")
-            for link in list1:
-                title = link.find("h5").text.replace(
-                    "  ", "").replace("\n", "")
-                url = link.find("a")["href"]
-                description = link.find("p").text.replace("\n", "")
-                print(Colors.GREEN + "[+]" +
-                      Colors.WHITE + "Title: {}".format(title))
-                print(Colors.YELLOW + "[v]" +
-                      Colors.WHITE + "Url: {}".format(url))
-                print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Description: {}\n".format(description))
-                f.write("Title: {}\r\n".format(title))
-                f.write("Url: {}\r\n".format(url))
-                f.write("Description: {}\r\n\n".format(description))
-                Engine.count = Engine.count + 1
-                i = i+1
+    
         elif name == "Torch-Images":
             f = open(report, "a")
             f.write(name + "\tonion-links\r\n")
@@ -238,11 +218,11 @@ class Engine:
                     url = link3["href"]
                     image = link3.find("img")["src"]
                     print(Colors.GREEN +
-                          "[+]" + Colors.WHITE + "Title: {}".format(title))
+                          "[+]" + Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
                     print(Colors.YELLOW + "[v]" +
-                          Colors.WHITE + "Url: {}".format(url))
+                          Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
                     print(Colors.YELLOW +
-                          "[v]" + Colors.WHITE + "Image-Url: {}\n".format(image))
+                          "[v]" + Colors.WHITE + "Image-Url: {}\n".format(Colors.GREEN + image))
                     f.write("Title: {}\r\n".format(title))
                     f.write("Url: {}\r\n".format(url))
                     f.write("Image-Url: {}\r\n\n".format(image))
