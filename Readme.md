@@ -2,6 +2,15 @@
 <img src = "Logo/Logo.png"height = "100" width="auto">
 </p>
 
+<p align = "center">
+<img src = "https://img.shields.io/github/stars/Lucksi/Darkus">
+<img src = "https://img.shields.io/github/forks/Lucksi/Darkus">
+<img src = "https://img.shields.io/github/license/Lucksi/Darkus">
+<img src = "https://img.shields.io/github/repo-size/Lucksi/Darkus">
+<img src= "https://img.shields.io/github/languages/count/Lucksi/Darkus">
+<img src = "https://visitor-badge.laobi.icu/badge?page_id=Lucksi.Darkus">
+</p>
+
 ***Darkus is a Onion websites searcher it uses deep/dark web searcher engines to search a specific word and give you back the link results.***
 
 ## DISCLAIMER
