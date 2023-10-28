@@ -11,7 +11,7 @@
 <img src = "https://visitor-badge.laobi.icu/badge?page_id=Lucksi.Darkus">
 </p>
 
-***Darkus is a dark web searcher it uses deep/dark web searcher engines to search a specific word and give you back the link results***
+***Darkus is a onion websites searcher it uses deep/dark web searcher engines to search a specific word and give you back the link results***
 
 ## DISCLAIMER
 
