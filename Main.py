@@ -11,13 +11,17 @@ from time import sleep
 import base64
 
 
-class Colors:
+class Utils:
+    
     YELLOW = "\033[0;93m"
     RED = "\033[31m"
     GREEN = "\033[32m"
     BLUE = "\033[94m"
     WHITE = "\033[97m"
 
+    @staticmethod
+    def Clear_Screen():
+        os.system("cls" if os.name == "nt" else "clear")
 
 class Engine:
     proxy = {
@@ -31,14 +35,14 @@ class Engine:
 
     @staticmethod
     def encoding(report):
-        quest = int(input(Colors.BLUE + "\n[?]" + Colors.WHITE + "Do you want to encode the report(1)Yes(2)No?" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
+        quest = int(input(Utils.BLUE + "\n[?]" + Utils.WHITE + "Do you want to encode the report(1)Yes(2)No?" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         if quest == 1:
             EncodedFile = report.replace(".txt", ".Dk")
             f = open(report, "r+")
             reader = f.read()
             f.close()
-            print(Colors.GREEN + "\n[+]" +
-                      Colors.WHITE + "Encoding report...")
+            print(Utils.GREEN + "\n[+]" +
+                      Utils.WHITE + "Encoding report...")
             sleep(3)
             encodingString = reader.encode("utf-8")
             Base64_Byte = base64.b64encode(encodingString)
@@ -46,20 +50,20 @@ class Engine:
             f = open(EncodedFile, "w+", encoding="ascii")
             f.write(FinalString)
             f.close()
-            print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Report Encoded: {}".format(Colors.GREEN + EncodedFile.replace("output/","")))
+            print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                      "Report Encoded: {}".format(Utils.GREEN + EncodedFile.replace("output/","")))
             os.remove(report)
-            print(Colors.GREEN + "\n[+]" + Colors.WHITE + "Report saved in: {}".format(
-                Colors.GREEN + EncodedFile))
+            print(Utils.GREEN + "\n[+]" + Utils.WHITE + "Report saved in: {}".format(
+                Utils.GREEN + EncodedFile))
         else:
-            print(Colors.GREEN + "\n[+]" + Colors.WHITE + "Report saved in: {}".format(
-                Colors.GREEN + report))
+            print(Utils.GREEN + "\n[+]" + Utils.WHITE + "Report saved in: {}".format(
+                Utils.GREEN + report))
 
 
     @staticmethod
     def Agreement():
-        os.system("clear")
-        print(Colors.BLUE + "[I]" + Colors.WHITE + "Checking Usage Agreement")
+        Utils.Clear_Screen()
+        print(Utils.BLUE + "[I]" + Utils.WHITE + "Checking Usage Agreement")
         sleep(3)
         if os.path.exists("Agreement.txt"):
             sleep(3)
@@ -68,27 +72,27 @@ class Engine:
             f.close()
             if content != "Agreement Accepted":
                 sleep(4)
-                os.system("clear")
+                Utils.Clear_Screen()
                 f = open("Banner/Banner.txt", "r", newline=None)
                 for line in f:
                     sleep(0.3)
-                    print(Colors.RED + line.replace("\n", ""))
+                    print(Utils.RED + line.replace("\n", ""))
                 f.close()
                 sleep(0.3)
                 try:
-                    choice = str(input(Colors.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for any bad/illegal usage of this tool.\n\nPress" +
-                                       Colors.GREEN + "(Y)" + Colors.WHITE + "To accept" + Colors.RED + "(N)" + Colors.WHITE + "To decline\n\n" + Colors.RED + "[:DARKUS:]" + Colors.WHITE + "-->"))
+                    choice = str(input(Utils.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for any bad/illegal usage of this tool.\n\nPress" +
+                                       Utils.GREEN + "(Y)" + Utils.WHITE + "To accept" + Utils.RED + "(N)" + Utils.WHITE + "To decline\n\n" + Utils.RED + "[:DARKUS:]" + Utils.WHITE + "-->"))
                     if choice == "Y" or choice == "y":
                         f = open("Agreement.txt", "w")
                         f.write("Agreement Accepted")
                         f.close()
-                        os.system("clear")
-                        print(Colors.YELLOW +
-                              "[v]" + Colors.WHITE + "Agreement Accepted")
+                        Utils.Clear_Screen()
+                        print(Utils.YELLOW +
+                              "[v]" + Utils.WHITE + "Agreement Accepted")
                         sleep(2)
                     elif choice == "N" or choice == "n":
                         print(
-                            Colors.RED + "Agreement refused You cannot use this tool if you do not accept this condition...\nExit")
+                            Utils.RED + "Agreement refused You cannot use this tool if you do not accept this condition...\nExit")
                         exit()
                     else:
                         Engine.Agreement()
@@ -98,31 +102,31 @@ class Engine:
                     print("\n")
                     exit()
             else:
-                print(Colors.YELLOW + "\n[v]" +
-                      Colors.WHITE + "Usage Agreement found")
+                print(Utils.YELLOW + "\n[v]" +
+                      Utils.WHITE + "Usage Agreement found")
                 sleep(2)
         else:
-            os.system("clear")
+            Utils.Clear_Screen()
             f = open("Banner/Banner.txt", "r", newline=None)
             for line in f:
                 sleep(0.3)
-                print(Colors.RED + line.replace("\n", ""))
+                print(Utils.RED + line.replace("\n", ""))
             f.close()
             sleep(0.3)
             try:
-                choice = str(input(Colors.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for any bad/illegal usage of this tool.\n\nPress" +
-                                       Colors.GREEN + "(Y)" + Colors.WHITE + "To accept" + Colors.RED + "(N)" + Colors.WHITE + "To decline\n\n" + Colors.RED + "[:DARKUS:]" + Colors.WHITE + "-->"))
+                choice = str(input(Utils.WHITE + "\nThis tool is intented only for research and educational purposes only. I do not assume any liability for any bad/illegal usage of this tool.\n\nPress" +
+                                       Utils.GREEN + "(Y)" + Utils.WHITE + "To accept" + Utils.RED + "(N)" + Utils.WHITE + "To decline\n\n" + Utils.RED + "[:DARKUS:]" + Utils.WHITE + "-->"))
                 if choice == "Y" or choice == "y":
                     f = open("Agreement.txt", "w")
                     f.write("Agreement Accepted")
                     f.close()
-                    os.system("clear")
-                    print(Colors.YELLOW + "[v]" +
-                          Colors.WHITE + "Agreement Accepted")
+                    Utils.Clear_Screen()
+                    print(Utils.YELLOW + "[v]" +
+                          Utils.WHITE + "Agreement Accepted")
                     sleep(2)
                 elif choice == "N" or choice == "n":
                     print(
-                        Colors.RED + "Agreement refused You cannot use this tool if you do not accept this condition...\nExit\n")
+                        Utils.RED + "Agreement refused You cannot use this tool if you do not accept this condition...\nExit\n")
                     exit()
                 else:
                     Engine.Agreement()
@@ -134,29 +138,29 @@ class Engine:
 
     @staticmethod
     def Banner():
-        os.system("clear")
+        Utils.Clear_Screen()
         f = open("Banner/Banner.txt", "r", newline=None)
         for line in f:
             sleep(0.3)
-            print(Colors.RED + line.replace("\n", ""))
+            print(Utils.RED + line.replace("\n", ""))
         f.close()
         sleep(0.3)
-        print(Colors.WHITE + "\nA Onion Websites Searcher\t  Coded by Lucksi")
-        print(Colors.RED + "____________________________________________________")
-        print(Colors.RED + "|" + Colors.WHITE + " Instagram:lucks_022" +
-              Colors.RED + "                              |")
-        print(Colors.RED + "|" + Colors.WHITE + " Email:lukege287@gmail.com" +
-              Colors.RED + "                        |")
-        print(Colors.RED + "|" + Colors.WHITE + " GitHub:Lucksi" +
-              Colors.RED + "                                    |")
-        print(Colors.RED + "|" + Colors.WHITE + " Twitter:@Lucksi_22" +
-              Colors.RED + "                               |")
-        print(Colors.RED + "|" + Colors.WHITE +
-              " Linkedin:https://www.linkedin.com/in/lucksi" + Colors.RED + "      |")
-        print(Colors.RED + "----------------------------------------------------")
+        print(Utils.WHITE + "\nA Onion Websites Searcher\t  Coded by Lucksi")
+        print(Utils.RED + "____________________________________________________")
+        print(Utils.RED + "|" + Utils.WHITE + " Instagram:lucks_022" +
+              Utils.RED + "                              |")
+        print(Utils.RED + "|" + Utils.WHITE + " Email:lukege287@gmail.com" +
+              Utils.RED + "                        |")
+        print(Utils.RED + "|" + Utils.WHITE + " GitHub:Lucksi" +
+              Utils.RED + "                                    |")
+        print(Utils.RED + "|" + Utils.WHITE + " Twitter:@Lucksi_22" +
+              Utils.RED + "                               |")
+        print(Utils.RED + "|" + Utils.WHITE +
+              " Linkedin:https://www.linkedin.com/in/lucksi" + Utils.RED + "      |")
+        print(Utils.RED + "----------------------------------------------------")
 
     @staticmethod
-    def dataExtraction(parser, name, report):
+    def dataExtraction(parser, name, report,out):
         if name == "Ahmia":
             f = open(report, "a")
             f.write(name + " onion-links\r\n\n")
@@ -169,14 +173,15 @@ class Engine:
                 description = link.find("p").text.replace("\n", "")
                 timestamp = link.find("span", class_="lastSeen")[
                     "data-timestamp"].replace("\n", "").replace(" ", "")
-                print(Colors.GREEN + "[+]" +
-                      Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
-                print(Colors.YELLOW + "[v]" +
-                      Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
-                print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Description: {}".format(Colors.GREEN + description))
-                print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Timestamp: {}\n".format(timestamp))
+                if out == 1:
+                    print(Utils.GREEN + "[+]" +
+                        Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
+                    print(Utils.YELLOW + "[v]" +
+                        Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "Description: {}".format(Utils.GREEN + description))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "Timestamp: {}\n".format(timestamp))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
@@ -194,12 +199,13 @@ class Engine:
                     "  ", "").replace("\n", "")
                 url = link.find("a")["href"]
                 description = link.find("p").text.replace("\n", "")
-                print(Colors.GREEN + "[+]" +
-                      Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
-                print(Colors.YELLOW + "[v]" +
-                      Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
-                print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Description: {}\n".format(Colors.GREEN + description))
+                if out == 1:
+                    print(Utils.GREEN + "[+]" +
+                        Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
+                    print(Utils.YELLOW + "[v]" +
+                        Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "Description: {}\n".format(Utils.GREEN + description))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n\n".format(description))
@@ -218,12 +224,13 @@ class Engine:
                         "  ", "").replace("\n", "")
                     url = link3["href"]
                     image = link3.find("img")["src"]
-                    print(Colors.GREEN +
-                          "[+]" + Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
-                    print(Colors.YELLOW + "[v]" +
-                          Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
-                    print(Colors.YELLOW +
-                          "[v]" + Colors.WHITE + "Image-Url: {}\n".format(Colors.GREEN + image))
+                    if out == 1:
+                        print(Utils.GREEN +
+                            "[+]" + Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
+                        print(Utils.YELLOW + "[v]" +
+                            Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
+                        print(Utils.YELLOW +
+                            "[v]" + Utils.WHITE + "Image-Url: {}\n".format(Utils.GREEN + image))
                     f.write("Title: {}\r\n".format(title))
                     f.write("Url: {}\r\n".format(url))
                     f.write("Image-Url: {}\r\n\n".format(image))
@@ -240,12 +247,13 @@ class Engine:
                     "  ", "").replace("\n", "")
                 url = link.find_all("a")[2]["href"]
                 description = link.find("span").text.replace("\n", "")
-                print(Colors.GREEN + "[+]" +
-                     Colors.WHITE + "Title: {}".format(Colors.GREEN + title))
-                print(Colors.YELLOW + "[v]" +
-                      Colors.WHITE + "Url: {}".format(Colors.GREEN + url))
-                print(Colors.YELLOW + "[v]" + Colors.WHITE +
-                      "Description: {}\n".format(Colors.GREEN + description))
+                if out == 1:
+                    print(Utils.GREEN + "[+]" +
+                        Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
+                    print(Utils.YELLOW + "[v]" +
+                        Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "Description: {}\n".format(Utils.GREEN + description))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n\n".format(description))
@@ -253,65 +261,65 @@ class Engine:
                 i = i+1
         f.write("Total Onion {} Site Found: {}\r\n".format(name, str(i)))
         f.close()
-        print(Colors.BLUE + "[I]" + Colors.WHITE + "Total {} Onion Site Found: {}".format(
-            Colors.GREEN + name + Colors.WHITE, Colors.GREEN + str(i) + Colors.WHITE))
+        print(Utils.BLUE + "[I]" + Utils.WHITE + "Total {} Onion Site Found: {}".format(
+            Utils.GREEN + name + Utils.WHITE, Utils.GREEN + str(i) + Utils.WHITE))
 
     @staticmethod
-    def Torch(parameter, report):
-        images = int(input(Colors.GREEN + "\n[+]" + Colors.WHITE +
-                     "Do you want to search images?(1)Yes(2)No" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
+    def Torch(parameter, report, out):
+        images = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                     "Do you want to search images?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         while images < 1 or images > 2:
-            images = int(input(Colors.GREEN + "\n[+]" + Colors.WHITE +
-                         "Do you want to search images?(1)Yes(2)No" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
+            images = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                         "Do you want to search images?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         if images == 1:
             image_url = "http://torchdeedp3i2jigzjdmfpn5ttjhthh5wbmda2rr3jvqjg5p77c54dqd.onion/images?query={}".format(
                 parameter)
-        print(Colors.GREEN + "\n[+]" + Colors.WHITE +
-              "Searching Torch Results for : {}\n".format(Colors.GREEN + parameter))
+        print(Utils.GREEN + "\n[+]" + Utils.WHITE +
+              "Searching Torch Results for : {}\n".format(Utils.GREEN + parameter))
         url = "http://torchdeedp3i2jigzjdmfpn5ttjhthh5wbmda2rr3jvqjg5p77c54dqd.onion/search?query={}&action=search".format(
             parameter)
         try:
             req = requests.get(url, proxies=Engine.proxy,
                                headers=Engine.headers)
             parser = soup(req.content, "html.parser")
-            Engine.dataExtraction(parser, "Torch", report)
+            Engine.dataExtraction(parser, "Torch", report, out)
             if images == 1:
                 try:
-                    print(Colors.GREEN + "\n[+]" + Colors.WHITE +
-                          "Searching Torch Images Results for : {}\n".format(Colors.GREEN + parameter))
+                    print(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                          "Searching Torch Images Results for : {}\n".format(Utils.GREEN + parameter))
                     req = requests.get(
                         image_url, proxies=Engine.proxy, headers=Engine.headers)
                     parser = soup(req.content, "html.parser")
-                    Engine.dataExtraction(parser, "Torch-Images", report)
+                    Engine.dataExtraction(parser, "Torch-Images", report, out)
                 except Exception as e:
                     pass
         except Exception as e:
             pass
     
     @staticmethod
-    def Notevil(parameter, report):
-        print(Colors.GREEN + "\n[+]" + Colors.WHITE +
-              "Searching notevil Results for : {}\n".format(Colors.GREEN + parameter))
+    def Notevil(parameter, report, out):
+        print(Utils.GREEN + "\n[+]" + Utils.WHITE +
+              "Searching notevil Results for : {}\n".format(Utils.GREEN + parameter))
         url = "http://notevilmtxf25uw7tskqxj6njlpebyrmlrerfv5hc4tuq7c7hilbyiqd.onion/index.php?q={}".format(
             parameter)
         try:
             req = requests.get(url, proxies=Engine.proxy,
                                headers=Engine.headers)
             parser = soup(req.content, "html.parser")
-            Engine.dataExtraction(parser, "notevil", report)
+            Engine.dataExtraction(parser, "notevil", report, out)
         except Exception as e:
             pass
 
 
     @staticmethod
-    def Ahmia(parameter, report):
-        print(Colors.GREEN + "\n[+]" + Colors.WHITE +
+    def Ahmia(parameter, report, out):
+        print(Utils.GREEN + "\n[+]" + Utils.WHITE +
               "Input Parameter: {}".format(parameter))
-        period = int(input(Colors.GREEN + "\n[+]" + Colors.WHITE +
-                     "Insert a Period of time\n(1)Last-Day\t\t(2)Last-Week\n(3)Last-Month\t\t(4)All-Results" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
+        period = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                     "Insert a Period of time\n(1)Last-Day\t\t(2)Last-Week\n(3)Last-Month\t\t(4)All-Results" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         while period < 1 or period > 4:
-            period = int(input(Colors.GREEN + "\n[+]" + Colors.WHITE +
-                         "Insert a Period of time\n(1)Last-Day\t\t(2)Last-Week\n(3)Last-Month\t\t(4)All-Results" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
+            period = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                         "Insert a Period of time\n(1)Last-Day\t\t(2)Last-Week\n(3)Last-Month\t\t(4)All-Results" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         if period == 1:
             url = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/search/?q={}&d=1".format(
                 parameter)
@@ -328,41 +336,45 @@ class Engine:
             url = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/search/?q={}&d=all".format(
                 parameter)
             resc_url = "https://ahmia.fi/search/?q={}&d=all".format(parameter)
-        print(Colors.GREEN + "\n[+]" + Colors.WHITE +
-              "Searching Ahmia Results for : {}\n".format(Colors.GREEN + parameter))
+        print(Utils.GREEN + "\n[+]" + Utils.WHITE +
+              "Searching Ahmia Results for : {}\n".format(Utils.GREEN + parameter))
         try:
             req = requests.get(url, proxies=Engine.proxy,
                                headers=Engine.headers)
             parser = soup(req.content, "html.parser")
-            Engine.dataExtraction(parser, "Ahmia", report)
+            Engine.dataExtraction(parser, "Ahmia", report, out)
         except Exception as e:
             try:
                 print(resc_url)
                 req = requests.get(
                     resc_url, proxies=Engine.proxy, headers=Engine.headers)
                 parser = soup(req.content, "html.parser")
-                Engine.dataExtraction(parser, "Ahmia", report)
+                Engine.dataExtraction(parser, "Ahmia", report, out)
             except Exception as e:
                 pass
-
+    
     @staticmethod
-    def Main():
+    def Requirements():
         Engine.Agreement()
-        os.system("clear")
-        print(Colors.BLUE + "[I]" + Colors.WHITE +
+        Utils.Clear_Screen()
+        print(Utils.BLUE + "[I]" + Utils.WHITE +
               "Checking if Tor Service is active...")
         sleep(3)
         try:
             service = requests.get("http://localhost:9050")
-            print(Colors.GREEN + "\n[+]" +
-                  Colors.WHITE + "Tor Service is active")
+            print(Utils.GREEN + "\n[+]" +
+                  Utils.WHITE + "Tor Service is active")
         except requests.ConnectionError:
-            print(Colors.RED + "\n[!]" + Colors.WHITE +
-                  "Tor Service is not active. Activating Tor Service...")
+            print(Utils.RED + "\n[!]" + Utils.WHITE +
+                  "Tor Service is not active. Activating Tor Service...\n")
             os.system("sudo service tor start")
-            print(Colors.GREEN + "\n[+]" +
-                  Colors.WHITE + "Tor Service activated")
-        print(Colors.BLUE + "\n[I]" + Colors.WHITE +
+            print(Utils.GREEN + "\n[+]" +
+                  Utils.WHITE + "Tor Service activated\n")
+
+
+    @staticmethod
+    def Main():
+        print(Utils.BLUE + "[I]" + Utils.WHITE +
               "Checking internet connection...")
         sleep(3)
         ipUrl = "http://ip-api.com/json"
@@ -373,43 +385,55 @@ class Engine:
             converted = json.loads(reader)
             ip = converted["query"]
             country = converted["country"]
-            print(Colors.BLUE + "\n[I]" + Colors.WHITE +
-                  "Your Tor-Proxy ip address: {}".format(Colors.GREEN + ip))
-            print(Colors.BLUE + "\n[I]" + Colors.WHITE +
-                  "Your are currently located in: {}".format(Colors.GREEN + country))
-            param = str(input(Colors.GREEN + "\n[+]" + Colors.WHITE +
-                        "Insert a Parameter to search" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
+            print(Utils.BLUE + "\n[I]" + Utils.WHITE +
+                  "Your Tor-Proxy ip address: {}".format(Utils.GREEN + ip))
+            print(Utils.BLUE + "\n[I]" + Utils.WHITE +
+                  "Your are currently located in: {}".format(Utils.GREEN + country))
+            param = str(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                        "Insert a Parameter to search(Darkus-Exit for quitting the program)" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
             while param == "":
                 param = str(input(
-                    Colors.GREEN + "\n[+]" + Colors.WHITE + "Insert a Parameter to search" + Colors.RED + "\n\n[:DARKUS:]" + Colors.WHITE + "-->"))
-            report = "output/{}.txt".format(param)
-            if os.path.exists(report):
-                os.remove(report)
-            if os.path.exists("output/{}.Dk".format(param)):
-                os.remove("output/{}.Dk".format(param))
-            Engine.Ahmia(param, report)
-            Engine.Torch(param, report)
-            Engine.Notevil(param, report)
-            f = open(report, "a")
-            f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
-            f.close()
-            print(Colors.BLUE + "\n[I]" + Colors.WHITE + "Total Onion Site Found: {}".format(
-                Colors.GREEN + str(Engine.count) + Colors.WHITE))
-            Engine.encoding(report)
-            print(Colors.BLUE + "\n[I]" +
-                  Colors.WHITE + "Stopping Tor Service...")
-            os.system("sudo service tor stop")
-            sleep(2)
-            print(Colors.WHITE + "\nExit Thank you for having used Darkus...")
+                    Utils.GREEN + "\n[+]" + Utils.WHITE + "Insert a Parameter to search(Darkus-Exit for quitting the program)" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+            if param != "Darkus-Exit":
+                report = "output/{}.txt".format(param)
+                if os.path.exists(report):
+                    os.remove(report)
+                if os.path.exists("output/{}.Dk".format(param)):
+                    os.remove("output/{}.Dk".format(param))
+                out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                            "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                while out < 1 or out > 2:
+                    out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                            "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                Engine.Ahmia(param, report, out)
+                Engine.Torch(param, report, out)
+                Engine.Notevil(param, report, out)
+                f = open(report, "a")
+                f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
+                f.close()
+                print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Total Onion Site Found: {}".format(
+                    Utils.GREEN + str(Engine.count) + Utils.WHITE))
+                Engine.encoding(report)
+                cont = input(Utils.WHITE + "\nPress enter to continue...")
+                Utils.Clear_Screen()
+                Engine.Main()
+                
+            else:
+                print(Utils.BLUE + "\n[I]" +
+                    Utils.WHITE + "Stopping Tor Service...")
+                os.system("sudo service tor stop")
+                sleep(2)
+                print(Utils.WHITE + "\nExit Thank you for having used Darkus...")
         except requests.ConnectionError:
-            print(Colors.RED + "\n\n[!]" + Colors.WHITE +
+            print(Utils.RED + "\n\n[!]" + Utils.WHITE +
                   "Cannot connect to Network,Check your internet connection")
 
 
 if __name__ == "__main__":
     try:
+        Engine.Requirements()
         Engine.Main()
     except KeyboardInterrupt:
-        print(Colors.RED + "\n\n[!]" + Colors.WHITE +
+        print(Utils.RED + "\n\n[!]" + Utils.WHITE +
               "You Have pressed CTRL C stopping Tor Services and Exit")
         os.system("sudo service tor stop")
