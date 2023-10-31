@@ -34,8 +34,8 @@ class Engine:
     count = 0
 
     @staticmethod
-    def encoding(report):
-        quest = int(input(Utils.BLUE + "\n[?]" + Utils.WHITE + "Do you want to encode the report(1)Yes(2)No?" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+    def encoding(report,name):
+        quest = int(input(Utils.BLUE + "\n[?]" + Utils.WHITE + "Do you want to encode the {} report(1)Yes(2)No?".format(name) + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         if quest == 1:
             EncodedFile = report.replace(".txt", ".Dk")
             f = open(report, "r+")
@@ -213,6 +213,7 @@ class Engine:
                 i = i+1
     
         elif name == "Torch-Images":
+            report = report.replace(".txt","_image.txt")
             f = open(report, "a")
             f.write(name + " onion-links\r\n\n")
             i = 0
@@ -236,6 +237,7 @@ class Engine:
                     f.write("Image-Url: {}\r\n\n".format(image))
                     i = i+1
                     Engine.count = Engine.count + 1
+            report = report.replace("_image.txt",".txt")
         
         elif name == "notevil":
             f = open(report, "a")
@@ -354,6 +356,13 @@ class Engine:
                 pass
     
     @staticmethod
+    def HelpMsg():
+        print(Utils.RED + "___________________________________________")
+        print (Utils.RED + "|" + Utils.WHITE + " DB-A = Execute Local Database" + Utils.RED +"           |\n|" + Utils.WHITE + " DB-D = Deactivate Local Database" + Utils.RED + "        |\n|" + Utils.WHITE + " DB-S = Local Database Status" + Utils.RED + "            |\n|" + Utils.WHITE + " Darkus-Exit = Exit from the programm" + Utils.RED + "    |")
+        print(Utils.RED + "-------------------------------------------")
+        Engine.Main("No-Res")
+            
+    @staticmethod
     def Requirements():
         Engine.Agreement()
         Utils.Clear_Screen()
@@ -363,7 +372,8 @@ class Engine:
         try:
             service = requests.get("http://localhost:9050")
             print(Utils.GREEN + "\n[+]" +
-                  Utils.WHITE + "Tor Service is active")
+                  Utils.WHITE + "Tor Service is active restart")
+            os.system("sudo service tor restart")
         except requests.ConnectionError:
             print(Utils.RED + "\n[!]" + Utils.WHITE +
                   "Tor Service is not active. Activating Tor Service...\n")
@@ -373,50 +383,78 @@ class Engine:
 
 
     @staticmethod
-    def Main():
-        print(Utils.BLUE + "[I]" + Utils.WHITE +
-              "Checking internet connection...")
-        sleep(3)
+    def Main(mode):
+        if mode == "Res":
+            print(Utils.BLUE + "[I]" + Utils.WHITE +
+                "Checking internet connection...")
+            sleep(3)
         ipUrl = "http://ip-api.com/json"
         try:
             ipReq = requests.get(ipUrl, proxies=Engine.proxy, timeout=15)
-            Engine.Banner()
-            reader = ipReq.text
-            converted = json.loads(reader)
-            ip = converted["query"]
-            country = converted["country"]
-            print(Utils.BLUE + "\n[I]" + Utils.WHITE +
-                  "Your Tor-Proxy ip address: {}".format(Utils.GREEN + ip))
-            print(Utils.BLUE + "\n[I]" + Utils.WHITE +
-                  "Your are currently located in: {}".format(Utils.GREEN + country))
+            if mode == "Res":
+                Engine.Banner()
+                reader = ipReq.text
+                converted = json.loads(reader)
+                ip = converted["query"]
+                country = converted["country"]
+                print(Utils.BLUE + "\n[I]" + Utils.WHITE +
+                    "Your Tor-Proxy ip address: {}".format(Utils.GREEN + ip))
+                print(Utils.BLUE + "\n[I]" + Utils.WHITE +
+                    "Your are currently located in: {}".format(Utils.GREEN + country))
+                print(Utils.BLUE + "\n[I]" + Utils.WHITE +
+                    "Darkus-Exit for quitting the program")
             param = str(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
-                        "Insert a Parameter to search(Darkus-Exit for quitting the program)" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                        "Insert a Parameter to search(Help For see all the options)" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
             while param == "":
                 param = str(input(
                     Utils.GREEN + "\n[+]" + Utils.WHITE + "Insert a Parameter to search(Darkus-Exit for quitting the program)" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
             if param != "Darkus-Exit":
-                report = "output/{}.txt".format(param)
-                if os.path.exists(report):
-                    os.remove(report)
-                if os.path.exists("output/{}.Dk".format(param)):
-                    os.remove("output/{}.Dk".format(param))
-                out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
-                            "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
-                while out < 1 or out > 2:
+                if param == "Help" or param == "help":
+                    Engine.HelpMsg()
+                elif param == "DB-A":
+                    os.system("sudo php -S 127.0.0.1:5600  >/dev/null 2>&1 &")
+                    print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Local Database started at http://127.0.0.1:5600")
+                    Engine.Main("No-Res")
+                elif param == "DB-D":
+                    os.system("sudo killall php >/dev/null 2>&1 &")
+                    print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Local Database stopped")
+                    Engine.Main("No-Res")
+                elif param == "DB-S":
+                    try:
+                        service = requests.get("http://localhost:5600")
+                        print(Utils.GREEN + "\n[+]" +
+                            Utils.WHITE + "Local Database Active at http://127.0.0.1:5600 ")
+                    except requests.ConnectionError:
+                        print(Utils.RED + "\n[!]" + Utils.WHITE +
+                            "Local Database is not not Active")
+                    Engine.Main("No-Res")
+                else:
+                    report = "output/{}.txt".format(param)
+                    if os.path.exists(report):
+                        os.remove(report)
+                    if os.path.exists("output/{}.Dk".format(param)):
+                        os.remove("output/{}.Dk".format(param))
+                    
                     out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
-                            "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
-                Engine.Ahmia(param, report, out)
-                Engine.Torch(param, report, out)
-                Engine.Notevil(param, report, out)
-                f = open(report, "a")
-                f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
-                f.close()
-                print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Total Onion Site Found: {}".format(
-                    Utils.GREEN + str(Engine.count) + Utils.WHITE))
-                Engine.encoding(report)
-                cont = input(Utils.WHITE + "\nPress enter to continue...")
-                Utils.Clear_Screen()
-                Engine.Main()
+                                    "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                    while out < 1 or out > 2:
+                            out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                                    "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                    Engine.Ahmia(param, report, out)
+                    Engine.Torch(param, report, out)
+                    Engine.Notevil(param, report, out)
+                    f = open(report, "a")
+                    f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
+                    f.close()
+                    print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Total Onion Site Found: {}".format(
+                            Utils.GREEN + str(Engine.count) + Utils.WHITE))
+                    report2 = report.replace(".txt","_image.txt")
+                    Engine.encoding(report,"Web")
+                    if os.path.isfile(report2):
+                        Engine.encoding(report2,"Image")
+                    cont = input(Utils.WHITE + "\nPress enter to continue...")
+                    Utils.Clear_Screen()
+                    Engine.Main("Res")
                 
             else:
                 print(Utils.BLUE + "\n[I]" +
@@ -432,7 +470,7 @@ class Engine:
 if __name__ == "__main__":
     try:
         Engine.Requirements()
-        Engine.Main()
+        Engine.Main("Res")
     except KeyboardInterrupt:
         print(Utils.RED + "\n\n[!]" + Utils.WHITE +
               "You Have pressed CTRL C stopping Tor Services and Exit")
