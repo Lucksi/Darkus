@@ -28,7 +28,7 @@ sudo bash Installer.sh
 ## Execution:
 ```bash
 cd Darkus
-python3 Main.py
+sudo python3 Main.py
 ```
 
 ## Current Search Engines:
