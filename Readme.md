@@ -44,6 +44,7 @@ python3 Main.py
 
 | Option name | Result |
 | ------------- | ------------- |
+| `Help`  | Print Command Options |
 | `DB-A`  | Activate Local Database |
 | `DB-D`  | Deactivate Local Database |
 | `DB-S`  | Local Database Status  |
