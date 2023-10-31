@@ -54,6 +54,7 @@ python3 Main.py
 ## Requirements:
     [+]Python3
     [+]Tor
+    [+]PHP
     [+]Internet Connection
 
 

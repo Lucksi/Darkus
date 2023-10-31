@@ -4,6 +4,7 @@
 # Copyright (C) 2023 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
+ARCHITECTURE="$(arch)"
 YELLOW=$(tput setaf 11)
 RED=$(tput setaf 1)
 WHITE=$(tput setaf 15)
@@ -17,6 +18,7 @@ function Packet-Installer {
 	sudo apt-get install tor -y &> /dev/null | printf "${WHITE}\n\nINSTALLING TOR\n"
 	sudo apt-get install git -y &> /dev/null | printf "${WHITE}\nINSTALLING GIT\n"
 	sudo apt-get install python3 -y &> /dev/null | printf "${WHITE}\nINSTALLING PYTHON3\n"
+	sudo apt-get install php -y &> /dev/null | printf "${WHITE}\nINSTALLING PHP\n"
     sudo apt-get install python3-pip -y &> /dev/null | printf "${WHITE}\nINSTALLING PIP"
     sudo pip3 install -r requirements.txt &> /dev/null | printf "${WHITE}\n\nINSTALLING-PYTHON-REQUIREMENTS..."
 	printf "${YELLOW}\n\n[+]${WHITE}REQUIREMENTS INSTALLED SUCCESFULLY${YELLOW}[+]"
