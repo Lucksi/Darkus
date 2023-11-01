@@ -432,8 +432,12 @@ class Engine:
                     report = "output/{}.txt".format(param)
                     if os.path.exists(report):
                         os.remove(report)
+                        if os.path.exists(report.replace(".txt","_image.txt")):
+                            os.remove(report.replace(".txt","_image.txt"))
                     if os.path.exists("output/{}.Dk".format(param)):
                         os.remove("output/{}.Dk".format(param))
+                        if os.path.exists(report.replace(".Dk","_image.Dk")):
+                            os.remove(report.replace(".Dk","_image.Dk"))
                     
                     out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
                                     "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
@@ -452,6 +456,7 @@ class Engine:
                     Engine.encoding(report,"Web")
                     if os.path.isfile(report2):
                         Engine.encoding(report2,"Image")
+                    Engine.count = 0
                     cont = input(Utils.WHITE + "\nPress enter to continue...")
                     Utils.Clear_Screen()
                     Engine.Main("Res")
