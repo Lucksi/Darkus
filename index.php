@@ -45,6 +45,10 @@ License: GNU General Public License v3.0-->
                         echo "<span id = 'NotFound'>{$parameter} Not Found</span>";
                     }
                 }
+                else{
+                    echo"<script>alert('Insert a parameter')</script>";
+                    echo "<span id = 'NotFound'>Insert a parameter</span>";
+                }
             }
         ?>
         <script>
