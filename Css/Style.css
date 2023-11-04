@@ -46,12 +46,12 @@ button{
     height: 25px;
 }
 
-.choice_bar h5{
+.choice_bar p{
     display: inline-block;
-    margin-left: 30px;
+    margin-left: 20px;
     font-size: 15px;
     color: azure;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 #NotFound{
@@ -78,4 +78,8 @@ button{
     margin-top: -25px;
     height: 50px;
     width: auto;
+}
+
+.searchbar{
+    margin-top:10px;
 }
