@@ -9,6 +9,7 @@
 <img src = "https://img.shields.io/github/repo-size/Lucksi/Darkus">
 <img src= "https://img.shields.io/github/languages/count/Lucksi/Darkus">
 <img src = "https://visitor-badge.laobi.icu/badge?page_id=Lucksi.Darkus">
+</p>
 
 ***Darkus is a Onion websites searcher it uses deep/dark web searcher engines to search a specific word and give you back the link results.***
 
@@ -65,6 +66,13 @@ sudo python3 Main.py
     [+]Tor
     [+]PHP
     [+]Internet Connection
+
+## STARGAZERS OVER TIME 
+
+
+[![Stargazers over time](https://starchart.cc/Lucksi/Darkus.svg)](https://starchart.cc/Lucksi/Darkus)
+
+<br>
 
 
 ## <p align= center>MADE WITH :heart: BY LUCKSI IN :it:</p>
