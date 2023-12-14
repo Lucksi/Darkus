@@ -103,6 +103,10 @@ class Engine:
                         background-color: black;
                     }
 
+                    .results p,h4{
+                        margin-left:10px;
+                    }
+
                     a{
                         text-decoration:none;
                     }
