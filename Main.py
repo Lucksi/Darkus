@@ -12,7 +12,6 @@ import base64
 
 
 class Utils:
-    
     YELLOW = "\033[0;93m"
     RED = "\033[31m"
     GREEN = "\033[32m"
@@ -58,7 +57,68 @@ class Engine:
         else:
             print(Utils.GREEN + "\n[+]" + Utils.WHITE + "Report saved in: {}".format(
                 Utils.GREEN + report))
+    @staticmethod
+    def HtmlReport(report,name):
+        content = """
+        <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=0.9">
+                <title>Darkus Report</title>
+                <style>
+                    body{
+                        background-color: rgba(0, 0, 0, 0.836);
+                    }
 
+                    h1{
+                        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                        color:red
+                    }
+
+                    p,h3,h4{
+                        color:white;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+                    }
+
+                    p{
+                        font-size: 15px;
+                    }
+
+                    h3{
+                        font-size: 25px;
+                        font-weight: bold;
+                    }
+
+                    h4{
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+
+                    .results{
+                        display: block;
+                        height: fit-content;
+                        width:fit-content;
+                        border: 3px solid white;
+                        border-radius: 20px;
+                        background-color: black;
+                    }
+
+                    a{
+                        text-decoration:none;
+                    }
+               </style>
+            </head>
+            <body>
+                <h3>Onion Links found</h3>
+                <h3>Report Generated with <a href = 'https://github.com/Lucksi/Darkus'>Darkus</a></h4>
+                <div class = 'results'>"
+                  
+        """
+        htmlrep = report.replace(".txt",".html")
+        f = open(htmlrep,"w")
+        f.write(content)
+        f.close()
+        return htmlrep
 
     @staticmethod
     def Agreement():
@@ -160,7 +220,8 @@ class Engine:
         print(Utils.RED + "----------------------------------------------------")
 
     @staticmethod
-    def dataExtraction(parser, name, report,out):
+    def dataExtraction(parser, name, report,out,htmlReport):
+        f2 = open(htmlReport,"a")
         if name == "Ahmia":
             f = open(report, "a")
             f.write(name + " onion-links\r\n\n")
@@ -186,6 +247,11 @@ class Engine:
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
                 f.write("Timestamp: {}\r\n\n".format(timestamp))
+               
+                f2.write("<h4>Title: {}</h4>".format(title))
+                f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
+                f2.write("<p>Description: {}</p>".format(description))
+                f2.write("<p>Timestamp: {}</p>".format(timestamp))
                 Engine.count = Engine.count + 1
                 i = i + 1
         
@@ -209,6 +275,10 @@ class Engine:
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n\n".format(description))
+        
+                f2.write("<h4>Title: {}</h4>".format(title))
+                f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
+                f2.write("<p>Description: {}</p>".format(description))
                 Engine.count = Engine.count + 1
                 i = i+1
     
@@ -235,6 +305,10 @@ class Engine:
                     f.write("Title: {}\r\n".format(title))
                     f.write("Url: {}\r\n".format(url))
                     f.write("Image-Url: {}\r\n\n".format(image))
+                    
+                    f2.write("<h4>Title: {}</h4>".format(title))
+                    f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
+                    f2.write("<p>Image-Url: {}</p>".format("<a href ='" + image + "' target = 'blank'>" + image + "</a>"))
                     i = i+1
                     Engine.count = Engine.count + 1
             report = report.replace("_image.txt",".txt")
@@ -259,6 +333,10 @@ class Engine:
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n\n".format(description))
+                
+                f2.write("<h4>Title: {}</h4>".format(title))
+                f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
+                f2.write("<p>Description: {}</p>".format(description))
                 Engine.count = Engine.count + 1
                 i = i+1
         f.write("Total Onion {} Site Found: {}\r\n".format(name, str(i)))
@@ -267,7 +345,7 @@ class Engine:
             Utils.GREEN + name + Utils.WHITE, Utils.GREEN + str(i) + Utils.WHITE))
 
     @staticmethod
-    def Torch(parameter, report, out):
+    def Torch(parameter, report, out,htmlReport):
         images = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
                      "Do you want to search images?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
         while images < 1 or images > 2:
@@ -284,7 +362,7 @@ class Engine:
             req = requests.get(url, proxies=Engine.proxy,
                                headers=Engine.headers)
             parser = soup(req.content, "html.parser")
-            Engine.dataExtraction(parser, "Torch", report, out)
+            Engine.dataExtraction(parser, "Torch", report, out,htmlReport)
             if images == 1:
                 try:
                     print(Utils.GREEN + "\n[+]" + Utils.WHITE +
@@ -292,14 +370,14 @@ class Engine:
                     req = requests.get(
                         image_url, proxies=Engine.proxy, headers=Engine.headers)
                     parser = soup(req.content, "html.parser")
-                    Engine.dataExtraction(parser, "Torch-Images", report, out)
+                    Engine.dataExtraction(parser, "Torch-Images", report, out,htmlReport)
                 except Exception as e:
                     pass
         except Exception as e:
             pass
     
     @staticmethod
-    def Notevil(parameter, report, out):
+    def Notevil(parameter, report, out,htmlReport):
         print(Utils.GREEN + "\n[+]" + Utils.WHITE +
               "Searching notevil Results for : {}\n".format(Utils.GREEN + parameter))
         url = "http://notevilmtxf25uw7tskqxj6njlpebyrmlrerfv5hc4tuq7c7hilbyiqd.onion/index.php?q={}".format(
@@ -308,13 +386,13 @@ class Engine:
             req = requests.get(url, proxies=Engine.proxy,
                                headers=Engine.headers)
             parser = soup(req.content, "html.parser")
-            Engine.dataExtraction(parser, "notevil", report, out)
+            Engine.dataExtraction(parser, "notevil", report, out,htmlReport)
         except Exception as e:
             pass
 
 
     @staticmethod
-    def Ahmia(parameter, report, out):
+    def Ahmia(parameter, report, out,htmlReport):
         print(Utils.GREEN + "\n[+]" + Utils.WHITE +
               "Input Parameter: {}".format(parameter))
         period = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
@@ -344,14 +422,14 @@ class Engine:
             req = requests.get(url, proxies=Engine.proxy,
                                headers=Engine.headers)
             parser = soup(req.content, "html.parser")
-            Engine.dataExtraction(parser, "Ahmia", report, out)
+            Engine.dataExtraction(parser, "Ahmia", report, out,htmlReport)
         except Exception as e:
             try:
                 print(resc_url)
                 req = requests.get(
                     resc_url, proxies=Engine.proxy, headers=Engine.headers)
                 parser = soup(req.content, "html.parser")
-                Engine.dataExtraction(parser, "Ahmia", report, out)
+                Engine.dataExtraction(parser, "Ahmia", report, out,htmlReport)
             except Exception as e:
                 pass
     
@@ -438,21 +516,28 @@ class Engine:
                         os.remove("output/{}.Dk".format(param))
                         if os.path.exists(report.replace(".Dk","_image.Dk")):
                             os.remove(report.replace(".Dk","_image.Dk"))
+                    if os.path.exists("output/{}.html".format(param)):
+                        os.remove("output/{}.html".format(param))
+                    htmlReport= Engine.HtmlReport(report,param)
                     
                     out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
                                     "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
                     while out < 1 or out > 2:
                             out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
                                     "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
-                    Engine.Ahmia(param, report, out)
-                    Engine.Torch(param, report, out)
-                    Engine.Notevil(param, report, out)
+                    Engine.Ahmia(param, report, out,htmlReport)
+                    Engine.Torch(param, report, out,htmlReport)
+                    Engine.Notevil(param, report, out,htmlReport)
                     f = open(report, "a")
                     f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
                     f.close()
                     print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Total Onion Site Found: {}".format(
                             Utils.GREEN + str(Engine.count) + Utils.WHITE))
                     report2 = report.replace(".txt","_image.txt")
+                    print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Html Report Created at: {} ".format(Utils.GREEN + htmlReport + Utils.WHITE))
+                    f = open(htmlReport,"a")
+                    f.write("</div>\n</body>\n</html>")
+                    f.close()
                     Engine.encoding(report,"Web")
                     if os.path.isfile(report2):
                         Engine.encoding(report2,"Image")
