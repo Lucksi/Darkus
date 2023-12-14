@@ -109,6 +109,7 @@ class Engine:
 
                     a{
                         text-decoration:none;
+                        color: #2779F6;
                     }
                </style>
             </head>
