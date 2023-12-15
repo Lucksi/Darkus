@@ -60,6 +60,9 @@ class Engine:
     @staticmethod
     def HtmlReport(report,name):
         content = """
+        <!--This Report has been created with Darkus
+Download link:https://github.com/Lucksi/Darkus-->
+        <!DOCTYPE HTML>
         <html>
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=0.9">
@@ -121,7 +124,7 @@ class Engine:
             </head>
             <body>
                 <h3>Onion Links found</h3>
-                <h3>Report Generated with <a href = 'https://github.com/Lucksi/Darkus'>Darkus</a></h4>
+                <h3>Report Generated with <a href = 'https://github.com/Lucksi/Darkus' target = 'blank'>Darkus</a></h4>
                 <div class = 'results'>"
                   
         """
