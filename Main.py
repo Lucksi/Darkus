@@ -62,7 +62,6 @@ class Engine:
         content = """
         <!--This Report has been created with Darkus
 Download link:https://github.com/Lucksi/Darkus-->
-        <!DOCTYPE HTML>
         <html>
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=0.9">
