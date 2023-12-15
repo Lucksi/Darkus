@@ -103,8 +103,14 @@ class Engine:
                         background-color: black;
                     }
 
-                    .results p,h4{
+                     .results p,h4{
                         margin-left:10px;
+                        margin-top:-10px;
+
+                    }
+
+                    .results h4{
+                         margin-top:-5px;
                     }
 
                     a{
