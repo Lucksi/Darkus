@@ -116,7 +116,7 @@ Download link:https://github.com/Lucksi/Darkus-->
                          margin-top:-5px;
                     }
 
-                    a,#MD5{
+                    a{
                         text-decoration:none;
                         color: #2779F6;
                     }
