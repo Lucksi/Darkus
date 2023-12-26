@@ -57,6 +57,7 @@ sudo python3 Main.py
 | `DB-A`  | Activate Local Database |
 | `DB-D`  | Deactivate Local Database |
 | `DB-S`  | Local Database Status  |
+ `--Check`  | Check if the given url is included on Ahmia Blacklist  | 
 | `Darkus-Exit`  | Exit from the programm  | 
 
 

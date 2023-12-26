@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup as soup
 import json
 from time import sleep
 import base64
+import hashlib
 
 
 class Utils:
@@ -115,7 +116,7 @@ Download link:https://github.com/Lucksi/Darkus-->
                          margin-top:-5px;
                     }
 
-                    a{
+                    a,#MD5{
                         text-decoration:none;
                         color: #2779F6;
                     }
@@ -125,13 +126,40 @@ Download link:https://github.com/Lucksi/Darkus-->
                 <h3>Onion Links found</h3>
                 <h3>Report Generated with <a href = 'https://github.com/Lucksi/Darkus' target = 'blank'>Darkus</a></h4>
                 <div class = 'results'>"
-                  
+
         """
         htmlrep = report.replace(".txt",".html")
         f = open(htmlrep,"w")
         f.write(content)
         f.close()
         return htmlrep
+    
+    @staticmethod
+    def HashCheck(url):
+        report = "output/Banned.txt"
+        md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
+        print(Utils.GREEN + "\n[+]" + Utils.WHITE + "Url Hashed: {}".format(Utils.GREEN + md5url + Utils.WHITE))
+        CheckUrl = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/blacklist/banned/"
+        try:
+            req = requests.get(url = CheckUrl, proxies = Engine.proxy,headers=Engine.headers)
+            if md5url in req.text:
+                print(Utils.RED + "\n[!]" + Utils.WHITE + "Url: {} Have been Banned it may be a dangerous link".format(Utils.GREEN + url + Utils.WHITE))
+                f = open(report,"a")
+                f.write(url + "\r\n")
+            else:
+                print(Utils.YELLOW + "\n[v]" + Utils.WHITE + "Url: {} Have not been Banned".format(Utils.GREEN + url + Utils.WHITE))
+        except Exception as e:
+            CheckUrl = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/blacklist/banned/"
+            try:
+                req = requests.get(url = CheckUrl, proxies = Engine.proxy,headers=Engine.headers)
+                if md5url in req.text:
+                    print(Utils.RED + "[!]" + Utils.WHITE + "Url: {} Have been Banned it may be a dangerous link".format(Utils.GREEN + url + Utils.WHITE))
+                    f = open(report,"a")
+                    f.write(url + "\r\n")
+                else:
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE + "Url: {} Have not been Banned".format(Utils.GREEN + url + Utils.WHITE))
+            except Exception as e:
+                print(Utils.RED + "[!]" + Utils.WHITE + "Something went wrong...\n")
 
     @staticmethod
     def Agreement():
@@ -244,6 +272,7 @@ Download link:https://github.com/Lucksi/Darkus-->
                 title = link.find("h4").text.replace(" ", "").replace("\n", "")
                 url = "http://" + \
                     link.find("cite").text.replace("\n", "").replace(" ", "")
+                md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
                 description = link.find("p").text.replace("\n", "")
                 timestamp = link.find("span", class_="lastSeen")[
                     "data-timestamp"].replace("\n", "").replace(" ", "")
@@ -255,19 +284,23 @@ Download link:https://github.com/Lucksi/Darkus-->
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
                         "Description: {}".format(Utils.GREEN + description))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "Timestamp: {}\n".format(timestamp))
+                        "Timestamp: {}".format(timestamp))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
-                f.write("Timestamp: {}\r\n\n".format(timestamp))
-               
+                f.write("Timestamp: {}\r\n".format(timestamp))
+                f.write("MD5-Url: {}\r\n\n".format(md5url))
+
                 f2.write("<h4>Title: {}</h4>".format(title))
                 f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                 f2.write("<p>Description: {}</p>".format(description))
                 f2.write("<p>Timestamp: {}</p>".format(timestamp))
+                f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
                 Engine.count = Engine.count + 1
                 i = i + 1
-        
+
         elif name == "Torch":
             f = open(report, "a")
             f.write(name + "onion-links\r\n\n")
@@ -278,23 +311,28 @@ Download link:https://github.com/Lucksi/Darkus-->
                     "  ", "").replace("\n", "")
                 url = link.find("a")["href"]
                 description = link.find("p").text.replace("\n", "")
+                md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
                 if out == 1:
                     print(Utils.GREEN + "[+]" +
                         Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
                     print(Utils.YELLOW + "[v]" +
                         Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "Description: {}\n".format(Utils.GREEN + description))
+                        "Description: {}".format(Utils.GREEN + description))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
-                f.write("Description: {}\r\n\n".format(description))
-        
+                f.write("Description: {}\r\n".format(description))
+                f.write("MD5-Url: {}\r\n\n".format(md5url))
+
                 f2.write("<h4>Title: {}</h4>".format(title))
                 f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                 f2.write("<p>Description: {}</p>".format(description))
+                f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
                 Engine.count = Engine.count + 1
                 i = i+1
-    
+
         elif name == "Torch-Images":
             report = report.replace(".txt","_image.txt")
             f = open(report, "a")
@@ -308,24 +346,29 @@ Download link:https://github.com/Lucksi/Darkus-->
                         "  ", "").replace("\n", "")
                     url = link3["href"]
                     image = link3.find("img")["src"]
+                    md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
                     if out == 1:
                         print(Utils.GREEN +
                             "[+]" + Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
                         print(Utils.YELLOW + "[v]" +
                             Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
                         print(Utils.YELLOW +
-                            "[v]" + Utils.WHITE + "Image-Url: {}\n".format(Utils.GREEN + image))
+                            "[v]" + Utils.WHITE + "Image-Url: {}".format(Utils.GREEN + image))
+                        print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
                     f.write("Title: {}\r\n".format(title))
                     f.write("Url: {}\r\n".format(url))
-                    f.write("Image-Url: {}\r\n\n".format(image))
-                    
+                    f.write("Image-Url: {}\r\n".format(image))
+                    f.write("MD5-Url: {}\r\n\n".format(md5url))
+
                     f2.write("<h4>Title: {}</h4>".format(title))
                     f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                     f2.write("<p>Image-Url: {}</p>".format("<a href ='" + image + "' target = 'blank'>" + image + "</a>"))
+                    f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
                     i = i+1
                     Engine.count = Engine.count + 1
             report = report.replace("_image.txt",".txt")
-        
+
         elif name == "notevil":
             f = open(report, "a")
             f.write(name + " onion-links\r\n\n")
@@ -336,20 +379,25 @@ Download link:https://github.com/Lucksi/Darkus-->
                     "  ", "").replace("\n", "")
                 url = link.find_all("a")[2]["href"]
                 description = link.find("span").text.replace("\n", "")
+                md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
                 if out == 1:
                     print(Utils.GREEN + "[+]" +
                         Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
                     print(Utils.YELLOW + "[v]" +
                         Utils.WHITE + "Url: {}".format(Utils.GREEN + url))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "Description: {}\n".format(Utils.GREEN + description))
+                        "Description: {}".format(Utils.GREEN + description))
+                    print(Utils.YELLOW + "[v]" + Utils.WHITE +
+                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
-                f.write("Description: {}\r\n\n".format(description))
-                
+                f.write("Description: {}\r\n".format(description))
+                f.write("MD5-Url: {}\r\n\n".format(md5url))
+
                 f2.write("<h4>Title: {}</h4>".format(title))
                 f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                 f2.write("<p>Description: {}</p>".format(description))
+                f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
                 Engine.count = Engine.count + 1
                 i = i+1
         f.write("Total Onion {} Site Found: {}\r\n".format(name, str(i)))
@@ -388,7 +436,7 @@ Download link:https://github.com/Lucksi/Darkus-->
                     pass
         except Exception as e:
             pass
-    
+
     @staticmethod
     def Notevil(parameter, report, out,htmlReport):
         print(Utils.GREEN + "\n[+]" + Utils.WHITE +
@@ -445,14 +493,14 @@ Download link:https://github.com/Lucksi/Darkus-->
                 Engine.dataExtraction(parser, "Ahmia", report, out,htmlReport)
             except Exception as e:
                 pass
-    
+
     @staticmethod
     def HelpMsg():
-        print(Utils.RED + "___________________________________________")
-        print (Utils.RED + "|" + Utils.WHITE + " DB-A = Execute Local Database" + Utils.RED +"           |\n|" + Utils.WHITE + " DB-D = Deactivate Local Database" + Utils.RED + "        |\n|" + Utils.WHITE + " DB-S = Local Database Status" + Utils.RED + "            |\n|" + Utils.WHITE + " Darkus-Exit = Exit from the programm" + Utils.RED + "    |")
-        print(Utils.RED + "-------------------------------------------")
+        print(Utils.RED + "____________________________________________________________________")
+        print (Utils.RED + "|" + Utils.WHITE + " DB-A = Execute Local Database" + Utils.RED +"                                    |\n|" + Utils.WHITE + " DB-D = Deactivate Local Database" + Utils.RED + "                                 |\n|" + Utils.WHITE + " DB-S = Local Database Status" + Utils.RED + "                                     |\n|" + Utils.WHITE + " Darkus-Exit = Exit from the programm" + Utils.RED + "                             |\n|" + Utils.WHITE + "--Check = Check if the given url is included on Ahmia Blacklist" + Utils.RED + "   |")
+        print(Utils.RED + "--------------------------------------------------------------------")
         Engine.Main("No-Res")
-            
+
     @staticmethod
     def Requirements():
         Engine.Agreement()
@@ -520,54 +568,62 @@ Download link:https://github.com/Lucksi/Darkus-->
                             "Local Database is not not Active")
                     Engine.Main("No-Res")
                 else:
-                    report = "output/{}.txt".format(param)
-                    if os.path.exists(report):
-                        os.remove(report)
-                        if os.path.exists(report.replace(".txt","_image.txt")):
-                            os.remove(report.replace(".txt","_image.txt"))
-                    if os.path.exists("output/{}.Dk".format(param)):
-                        os.remove("output/{}.Dk".format(param))
-                        if os.path.exists(report.replace(".Dk","_image.Dk")):
-                            os.remove(report.replace(".Dk","_image.Dk"))
-                    if os.path.exists("output/{}.html".format(param)):
-                        os.remove("output/{}.html".format(param))
-                    htmlReport= Engine.HtmlReport(report,param)
-                    
-                    out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
-                                    "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
-                    while out < 1 or out > 2:
-                            out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
-                                    "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
-                    Engine.Ahmia(param, report, out,htmlReport)
-                    Engine.Torch(param, report, out,htmlReport)
-                    Engine.Notevil(param, report, out,htmlReport)
-                    f = open(report, "a")
-                    f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
-                    f.close()
-                    print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Total Onion Site Found: {}".format(
-                            Utils.GREEN + str(Engine.count) + Utils.WHITE))
-                    report2 = report.replace(".txt","_image.txt")
-                    print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Html Report Created at: {} ".format(Utils.GREEN + htmlReport + Utils.WHITE))
-                    f = open(htmlReport,"a")
-                    f.write("</div>\n</body>\n</html>")
-                    f.close()
-                    Engine.encoding(report,"Web")
-                    if os.path.isfile(report2):
-                        Engine.encoding(report2,"Image")
-                    Engine.count = 0
+                    if "--check" in param:
+                        url = param.replace("--check","")
+                        if url ==  "" or ".onion" not in url:
+                            print(Utils.BLUE + "[I]" + Utils.WHITE + "Please Insert a valid onion url before '--check'")
+                        
+                        else:
+                            Engine.HashCheck(url)
+                    else:
+                        report = "output/{}.txt".format(param)
+                        if os.path.exists(report):
+                            os.remove(report)
+                            if os.path.exists(report.replace(".txt","_image.txt")):
+                                os.remove(report.replace(".txt","_image.txt"))
+                        if os.path.exists("output/{}.Dk".format(param)):
+                            os.remove("output/{}.Dk".format(param))
+                            if os.path.exists(report.replace(".Dk","_image.Dk")):
+                                os.remove(report.replace(".Dk","_image.Dk"))
+                        if os.path.exists("output/{}.html".format(param)):
+                            os.remove("output/{}.html".format(param))
+                        htmlReport= Engine.HtmlReport(report,param)
+
+                        out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                                        "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                        while out < 1 or out > 2:
+                                out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
+                                        "Do you want to print the output on Screen?(1)Yes(2)No" + Utils.RED + "\n\n[:DARKUS:]" + Utils.WHITE + "-->"))
+                        Engine.Ahmia(param, report, out,htmlReport)
+                        Engine.Torch(param, report, out,htmlReport)
+                        Engine.Notevil(param, report, out,htmlReport)
+                        f = open(report, "a")
+                        f.write("Total Onion Site Found: {}\r\n\nReport created with Darkus:https://github.com/Lucksi/Darkus".format(str(Engine.count)))
+                        f.close()
+                        print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Total Onion Site Found: {}".format(
+                                Utils.GREEN + str(Engine.count) + Utils.WHITE))
+                        report2 = report.replace(".txt","_image.txt")
+                        print(Utils.BLUE + "\n[I]" + Utils.WHITE + "Html Report Created at: {} ".format(Utils.GREEN + htmlReport + Utils.WHITE))
+                        f = open(htmlReport,"a")
+                        f.write("</div>\n</body>\n</html>")
+                        f.close()
+                        Engine.encoding(report,"Web")
+                        if os.path.isfile(report2):
+                            Engine.encoding(report2,"Image")
+                        Engine.count = 0
                     cont = input(Utils.WHITE + "\nPress enter to continue...")
                     Utils.Clear_Screen()
                     Engine.Main("Res")
-                
+
             else:
                 print(Utils.BLUE + "\n[I]" +
                     Utils.WHITE + "Stopping Tor Service...")
                 os.system("sudo service tor stop")
                 sleep(2)
                 print(Utils.WHITE + "\nExit Thank you for having used Darkus...")
-        except requests.ConnectionError:
+        except requests.ConnectionError as e:
             print(Utils.RED + "\n\n[!]" + Utils.WHITE +
-                  "Cannot connect to Network,Check your internet connection")
+                  "Cannot connect to Network,Check your internet connection" + str(e))
 
 
 if __name__ == "__main__":
