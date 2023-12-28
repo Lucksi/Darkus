@@ -27,6 +27,7 @@ function Packet-Installer {
 function installer {
     Packet-Installer
 	sleep 1
+	touch output/Banned.txt
 	printf "\n\nPROGRAM INSTALLED CORRECTLY"
 	printf "${YELLOW}\n\nTHANK YOU FOR HAVE INSTALLED DARKUS\n\n"
     exit 1

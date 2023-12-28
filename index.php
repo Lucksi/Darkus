@@ -14,8 +14,8 @@ License: GNU General Public License v3.0-->
                         echo"<script>alert('Insert a parameter')</script>";
                         echo "<span id = 'NotFound'>Insert a parameter</span>";
                     }
-                    $filename = "output/{$parameter}.txt";
-                    $filename2 = "output/{$parameter}.Dk";
+                    $filename = "output/{$parameter}/{$parameter}.txt";
+                    $filename2 = "output/{$parameter}/{$parameter}.Dk";
                 }
                 else if(isset($_POST["IMAGE"])){
                     $parameter = $_POST["input"];
@@ -23,8 +23,8 @@ License: GNU General Public License v3.0-->
                         echo"<script>alert('Insert a parameter')</script>";
                         echo "<span id = 'NotFound'>Insert a parameter</span>";
                     }
-                    $filename = "output/{$parameter}_image.txt";
-                    $filename2 = "output/{$parameter}_image.Dk";
+                    $filename = "output/{$parameter}/{$parameter}_image.txt";
+                    $filename2 = "output/{$parameter}/{$parameter}_image.Dk";
                 }
                 if($parameter != ""){
                     if(file_exists($filename)){

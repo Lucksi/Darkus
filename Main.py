@@ -31,7 +31,7 @@ class Engine:
     headers = {
         "Useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36",
     }
-    count = 0
+    count = 1
 
     @staticmethod
     def encoding(report,name):
@@ -284,16 +284,16 @@ Download link:https://github.com/Lucksi/Darkus-->
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
                         "Description: {}".format(Utils.GREEN + description))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "Timestamp: {}".format(timestamp))
+                        "Timestamp: {}".format(Utils.GREEN + timestamp))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
+                        "MD5-url: {}\n".format(Utils.BLUE + md5url))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
                 f.write("Timestamp: {}\r\n".format(timestamp))
                 f.write("MD5-Url: {}\r\n\n".format(md5url))
 
-                f2.write("<h4>Title: {}</h4>".format(title))
+                f2.write("<h4>({})Title: {}</h4>".format(Engine.count,title))
                 f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                 f2.write("<p>Description: {}</p>".format(description))
                 f2.write("<p>Timestamp: {}</p>".format(timestamp))
@@ -320,13 +320,13 @@ Download link:https://github.com/Lucksi/Darkus-->
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
                         "Description: {}".format(Utils.GREEN + description))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
+                        "MD5-url: {}\n".format(Utils.BLUE + md5url))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
                 f.write("MD5-Url: {}\r\n\n".format(md5url))
 
-                f2.write("<h4>Title: {}</h4>".format(title))
+                f2.write("<h4>({})Title: {}</h4>".format(Engine.count,title))
                 f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                 f2.write("<p>Description: {}</p>".format(description))
                 f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
@@ -355,13 +355,13 @@ Download link:https://github.com/Lucksi/Darkus-->
                         print(Utils.YELLOW +
                             "[v]" + Utils.WHITE + "Image-Url: {}".format(Utils.GREEN + image))
                         print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
+                        "MD5-url: {}\n".format(Utils.BLUE + md5url))
                     f.write("Title: {}\r\n".format(title))
                     f.write("Url: {}\r\n".format(url))
                     f.write("Image-Url: {}\r\n".format(image))
                     f.write("MD5-Url: {}\r\n\n".format(md5url))
 
-                    f2.write("<h4>Title: {}</h4>".format(title))
+                    f2.write("<h4>({})Title: {}</h4>".format(Engine.count,title))
                     f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                     f2.write("<p>Image-Url: {}</p>".format("<a href ='" + image + "' target = 'blank'>" + image + "</a>"))
                     f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
@@ -388,13 +388,13 @@ Download link:https://github.com/Lucksi/Darkus-->
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
                         "Description: {}".format(Utils.GREEN + description))
                     print(Utils.YELLOW + "[v]" + Utils.WHITE +
-                        "MD5-url: {}\n".format(Utils.GREEN + md5url))
+                        "MD5-url: {}\n".format(Utils.BLUE + md5url))
                 f.write("Title: {}\r\n".format(title))
                 f.write("Url: {}\r\n".format(url))
                 f.write("Description: {}\r\n".format(description))
                 f.write("MD5-Url: {}\r\n\n".format(md5url))
 
-                f2.write("<h4>Title: {}</h4>".format(title))
+                f2.write("<h4>({})Title: {}</h4>".format(Engine.count,title))
                 f2.write("<p>Url: {}</p>".format("<a href ='" + url + "' target = 'blank'>" + url + "</a>"))
                 f2.write("<p>Description: {}</p>".format(description))
                 f2.write("<p>MD5-Url: <a>{}</a></p>".format(md5url))
@@ -576,17 +576,22 @@ Download link:https://github.com/Lucksi/Darkus-->
                         else:
                             Engine.HashCheck(url)
                     else:
-                        report = "output/{}.txt".format(param)
+                        fold = "output/{}".format(param)
+                        if os.path.exists(fold):
+                            pass
+                        else:
+                            os.mkdir(fold)
+                        report = "output/{}/{}.txt".format(param,param)
                         if os.path.exists(report):
                             os.remove(report)
                             if os.path.exists(report.replace(".txt","_image.txt")):
                                 os.remove(report.replace(".txt","_image.txt"))
-                        if os.path.exists("output/{}.Dk".format(param)):
-                            os.remove("output/{}.Dk".format(param))
+                        if os.path.exists("output/{}/{}.Dk".format(param,param)):
+                            os.remove("output/{}/{}.Dk".format(param,param))
                             if os.path.exists(report.replace(".Dk","_image.Dk")):
                                 os.remove(report.replace(".Dk","_image.Dk"))
-                        if os.path.exists("output/{}.html".format(param)):
-                            os.remove("output/{}.html".format(param))
+                        if os.path.exists("output/{}/{}.html".format(param,param)):
+                            os.remove("output/{}/{}.html".format(param,param))
                         htmlReport= Engine.HtmlReport(report,param)
 
                         out = int(input(Utils.GREEN + "\n[+]" + Utils.WHITE +
