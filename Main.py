@@ -569,7 +569,7 @@ Download link:https://github.com/Lucksi/Darkus-->
                     Engine.Main("No-Res")
                 else:
                     if "--Check" in param:
-                        url = param.replace("--Check","")
+                        url = param.replace("--Check","").replace(" ","")
                         if url ==  "" or ".onion" not in url:
                             print(Utils.BLUE + "[I]" + Utils.WHITE + "Please Insert a valid onion url before '--check'")
                         
