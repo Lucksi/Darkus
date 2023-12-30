@@ -149,7 +149,7 @@ Download link:https://github.com/Lucksi/Darkus-->
             else:
                 print(Utils.YELLOW + "\n[v]" + Utils.WHITE + "Url: {} Have not been Banned".format(Utils.GREEN + url + Utils.WHITE))
         except Exception as e:
-            CheckUrl = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/blacklist/banned/"
+            CheckUrl = "https://ahmia.fi/blacklist/banned/"
             try:
                 req = requests.get(url = CheckUrl, proxies = Engine.proxy,headers=Engine.headers)
                 if md5url in req.text:
