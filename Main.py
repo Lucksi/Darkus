@@ -568,8 +568,8 @@ Download link:https://github.com/Lucksi/Darkus-->
                             "Local Database is not not Active")
                     Engine.Main("No-Res")
                 else:
-                    if "--check" in param:
-                        url = param.replace("--check","")
+                    if "--Check" in param:
+                        url = param.replace("--Check","")
                         if url ==  "" or ".onion" not in url:
                             print(Utils.BLUE + "[I]" + Utils.WHITE + "Please Insert a valid onion url before '--check'")
                         
