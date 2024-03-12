@@ -1,6 +1,6 @@
 # ORIGINAL CREATOR: Luca Garofalo (Lucksi)
 # AUTHOR: Luca Garofalo (Lucksi)
-# Copyright (C) 2023 Lucksi <lukege287@gmail.com>
+# Copyright (C) 2023-2024 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
 import requests
@@ -270,8 +270,7 @@ Download link:https://github.com/Lucksi/Darkus-->
             list1 = parser.find_all("li", class_="result")
             for link in list1:
                 title = link.find("h4").text.replace(" ", "").replace("\n", "")
-                url = "http://" + \
-                    link.find("cite").text.replace("\n", "").replace(" ", "")
+                url = link.find("a")["href"].split("redirect_url=")[-1].lstrip()
                 md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
                 description = link.find("p").text.replace("\n", "")
                 timestamp = link.find("span", class_="lastSeen")[
