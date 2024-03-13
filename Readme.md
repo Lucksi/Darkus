@@ -34,7 +34,7 @@ sudo chmod +x Installer.sh
 sudo bash Installer.sh
 ```
 
-## INSTALLATION (Venv):
+## Installation (Venv):
 **if you encounter some errors in the python libraries installation use this method:**
 ```bash
 git clone https://github.com/Lucksi/Darkus
