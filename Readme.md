@@ -33,6 +33,22 @@ sudo apt-get update
 sudo chmod +x Installer.sh
 sudo bash Installer.sh
 ```
+<br>
+
+# INSTALLATION (Venv):
+**if you encounter some errors in the python libraries installation use this method:**
+```bash
+git clone https://github.com/Lucksi/Darkus
+sudo apt-get update
+cd Darkus
+python3 -m venv .lib_venv
+sudo chmod +x Installer.sh
+sudo bash Installer.sh
+source .lib_venv/bin/active
+pip3 install -r requirements.txt
+deactivate
+```
+<br>
 
 ## Execution:
 ```bash
