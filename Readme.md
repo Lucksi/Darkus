@@ -43,9 +43,8 @@ cd Darkus
 python3 -m venv .lib_venv
 sudo chmod +x Installer.sh
 sudo bash Installer.sh
-source .lib_venv/bin/active
+source .lib_venv/bin/activate
 pip3 install -r requirements.txt
-deactivate
 ```
 
 ## Execution:
