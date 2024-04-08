@@ -52,6 +52,12 @@ pip3 install -r requirements.txt
 cd Darkus
 sudo python3 Main.py
 ```
+## Execution (Venv)
+```bash
+cd Darkus
+source .lib_venv/bin/activate
+python3 main.py
+```
 
 ## Current Search Engines:
 
