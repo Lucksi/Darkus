@@ -56,7 +56,7 @@ sudo python3 Main.py
 ```bash
 cd Darkus
 source .lib_venv/bin/activate
-python3 main.py
+python3 Main.py
 ```
 
 ## Current Search Engines:
