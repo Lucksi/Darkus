@@ -50,8 +50,8 @@ pip3 install -r requirements.txt
 ## Execution:
 ```bash
 cd Darkus
-sudo python3 Main.py (Database on)
-python3 Main.py (Database off)
+sudo python3 Main.py
+python3 Main.py
 ```
 ## Execution (Venv)
 ```bash
