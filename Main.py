@@ -273,8 +273,11 @@ Download link:https://github.com/Lucksi/Darkus-->
                 url = link.find("a")["href"].split("redirect_url=")[-1].lstrip()
                 md5url = hashlib.md5(url.encode('utf-8')).hexdigest()
                 description = link.find("p").text.replace("\n", "")
-                timestamp = link.find("span", class_="lastSeen")[
-                    "data-timestamp"].replace("\n", "").replace(" ", "")
+                try:
+                    timestamp = link.find("span", class_="lastSeen")[
+                        "data-timestamp"].replace("\n", "").replace("  ", "")
+                except Exception as e:
+                    timestamp = "None"
                 if out == 1:
                     print(Utils.GREEN + "[+]" +
                         Utils.WHITE + "Title: {}".format(Utils.GREEN + title))
